@@ -7,7 +7,7 @@ node()
 		git branch: 'main', 
 		credentialsId: 'nagithub18', 
 		url: 'https://github.com/nagithub18/viritus-app-code.git'
-	}    
+	}    	
 	stage ("Deploy"){
 		sshPublisher(publishers: [sshPublisherDesc(configName: 'viritus-app-server-1', 
 		transfers: [sshTransfer(cleanRemote: false, excludes: '', 
