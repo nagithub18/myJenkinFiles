@@ -60,10 +60,13 @@ node()
 		verbose: false)])
 	}
 	stage ("Sending Mail"){
-		sh '''
-			echo "Main Sending Code"
-
-		'''
+		mail bcc: '', 
+		body: 'Deployment Successful', 
+		cc: '', 
+		from: '', 
+		replyTo: '', 
+		subject: 'Deployment Successful', 
+		to: 'gnagaraj1812@gmail.com'
 	}
 
 }
