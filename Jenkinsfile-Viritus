@@ -7,27 +7,7 @@ node()
 		git branch: 'main', 
 		credentialsId: 'nagithub18', 
 		url: 'https://github.com/nagithub18/viritus-app-code.git'
-	}
-	stage ("Code Scanning"){
-		sh '''
-			echo "Code Scanning"
-		'''
-	}
-	stage ("Build Application"){
-		sh '''
-			echo "Compile Code here"
-		'''
 	}    
-	stage ("Unit Test"){
-		sh '''
-			echo "Unit Test Code here"
-		'''
-	}  
-	stage ("Archiving"){
-		sh '''
-			echo "Archiving Code here"
-		'''
-	}      
 	stage ("Deploy"){
 		sshPublisher(publishers: [sshPublisherDesc(configName: 'viritus-app-server-1', 
 		transfers: [sshTransfer(cleanRemote: false, excludes: '', 
@@ -58,15 +38,6 @@ node()
 		usePromotionTimestamp: false, 
 		useWorkspaceInPromotion: false, 
 		verbose: false)])
-	}
-	stage ("Sending Mail"){
-		mail bcc: '', 
-		body: 'Deployment Successful', 
-		cc: '', 
-		from: '', 
-		replyTo: '', 
-		subject: 'Deployment Successful', 
-		to: 'gnagaraj1812@gmail.com'
 	}
 
 }
