@@ -1,0 +1,69 @@
+node()
+{
+	stage ("Clear Workspace") {
+		cleanWs()
+	}
+	stage ("Pull Code"){
+		git branch: 'main', 
+		credentialsId: 'nagithub18', 
+		url: 'https://github.com/nagithub18/viritus-app-code.git'
+	}
+	stage ("Code Scanning"){
+		sh '''
+			echo "Code Scanning"
+		'''
+	}
+	stage ("Build Application"){
+		sh '''
+			echo "Compile Code here"
+		'''
+	}    
+	stage ("Unit Test"){
+		sh '''
+			echo "Unit Test Code here"
+		'''
+	}  
+	stage ("Archiving"){
+		sh '''
+			echo "Archiving Code here"
+		'''
+	}      
+	stage ("Deploy"){
+		sshPublisher(publishers: [sshPublisherDesc(configName: 'viritus-app-server-1', 
+		transfers: [sshTransfer(cleanRemote: false, excludes: '', 
+		execCommand: '', execTimeout: 120000, 
+		flatten: false, 
+		makeEmptyDirs: false, 
+		noDefaultExcludes: false, 
+		patternSeparator: '[, ]+', 
+		remoteDirectory: '', 
+		remoteDirectorySDF: false, 
+		removePrefix: '', 
+		sourceFiles: '**/*.*')], 
+		usePromotionTimestamp: false, 
+		useWorkspaceInPromotion: false, 
+		verbose: false), 
+		sshPublisherDesc(configName: 'viritus-app-server-2', 
+		transfers: [sshTransfer(cleanRemote: false, excludes: '', 
+		execCommand: '', 
+		execTimeout: 120000, 
+		flatten: false, 
+		makeEmptyDirs: false, 
+		noDefaultExcludes: false, 
+		patternSeparator: '[, ]+', 
+		remoteDirectory: '', 
+		remoteDirectorySDF: false, 
+		removePrefix: '', 
+		sourceFiles: '**/*.*')], 
+		usePromotionTimestamp: false, 
+		useWorkspaceInPromotion: false, 
+		verbose: false)])
+	}
+	stage ("Sending Mail"){
+		sh '''
+			echo "Main Sending Code"
+
+		'''
+	}
+
+}
