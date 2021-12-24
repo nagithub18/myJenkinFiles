@@ -1,0 +1,62 @@
+node()
+{
+	stage ("Clear Workspace") {
+		cleanWs()
+	}
+	stage ("Pull Code"){
+		git branch: 'main', 
+		credentialsId: 'nagithub18', 
+		url: 'https://github.com/nagithub18/hello-world-code.git'
+	}
+	stage ("Build Application"){
+		sh '''
+			cd $WORKSPACE
+			mvn install
+			mvn clean
+			mvn compile
+			mvn package
+			
+		'''
+	}        
+	stage ("Deploy"){
+		sshPublisher(publishers: [sshPublisherDesc(configName: 'viritus-app-server-1', 
+		transfers: [sshTransfer(cleanRemote: false, 
+		excludes: '', 
+		execCommand: '', 
+		execTimeout: 120000, 
+		flatten: false, 
+		makeEmptyDirs: false, 
+		noDefaultExcludes: false, 
+		patternSeparator: '[, ]+', 
+		remoteDirectory: '', 
+		remoteDirectorySDF: false, 
+		removePrefix: '', 
+		sourceFiles: '**/*.jar')], 
+		usePromotionTimestamp: false, 
+		useWorkspaceInPromotion: false, 
+		verbose: false), 
+		sshPublisherDesc(configName: 'viritus-app-server-2', 
+		transfers: [sshTransfer(cleanRemote: false, 
+		excludes: '', 
+		execCommand: '', 
+		execTimeout: 120000, 
+		flatten: false, 
+		makeEmptyDirs: false, 
+		noDefaultExcludes: false, 
+		patternSeparator: '[, ]+', 
+		remoteDirectory: '', 
+		remoteDirectorySDF: false, 
+		removePrefix: '', 
+		sourceFiles: '**/*.jar')], 
+		usePromotionTimestamp: false, 
+		useWorkspaceInPromotion: false, 
+		verbose: false)])
+	}
+	stage ("Sending Mail"){
+		sh '''
+			echo "Main Sending Code"
+
+		'''
+	}
+
+}
