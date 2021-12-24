@@ -11,11 +11,7 @@ node()
 	stage ("Build Application"){
 		sh '''
 			cd $WORKSPACE
-			mvn install
-			mvn clean
-			mvn compile
-			mvn package
-			
+			mvn install clearn compile package
 		'''
 	}        
 	stage ("Deploy"){
