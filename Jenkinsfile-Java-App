@@ -4,7 +4,7 @@ node()
 		cleanWs()
 	}
 	stage ("Pull Code"){
-		git branch: 'main', 
+		git branch: 'master', 
 		credentialsId: 'nagithub18', 
 		url: 'https://github.com/nagithub18/hello-world-code.git'
 	}
