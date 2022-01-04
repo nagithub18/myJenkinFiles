@@ -1,0 +1,42 @@
+node()
+{
+	stage ("Clear Workspace") {
+		cleanWs()
+	}
+	stage ("Pull Code"){
+		git branch: 'main', 
+		credentialsId: 'nagithub18', 
+		url: 'https://github.com/nagithub18/nov-website.git'
+	}    	
+	stage ("Build Docker Images"){
+		sh '''
+			docker build -t viritus-website .
+		'''
+
+	}
+	stage ("Push to ECR"){
+		sh '''
+			aws ecr get-login --no-include-email >> login.sh
+			chmod 772 login.sh
+			./login.sh
+			
+			docker tag viritus-website:latest 385830127656.dkr.ecr.us-east-1.amazonaws.com/viritus-website:latest 
+			
+			docker push 385830127656.dkr.ecr.us-east-1.amazonaws.com/viritus-website:latest
+		
+		'''
+
+	}
+	stage ("Deployment"){
+		sh '''
+			echo "Deployment completed"
+		'''
+	}
+	stage ("Mail Sent"){
+		sh '''
+			echo "Mail completed"
+		'''
+
+	}
+
+}
