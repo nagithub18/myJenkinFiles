@@ -29,7 +29,7 @@ node()
 	}
 	stage ("Deployment"){
 		sh '''
-			aws ecs update-service --cluster Cluster-1 --service mywebsite-service --force-new-deployment
+			aws ecs update-service --cluster Cluster-1 --service website-service --force-new-deployment
 		'''
 	}
 	stage ("Mail Sent"){
