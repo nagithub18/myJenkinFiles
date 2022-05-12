@@ -3,11 +3,11 @@ pipeline {
     
     environment {
         //once you create ACR in Azure cloud, use that here
-        registryName = "pythonwebsite"
+        registryName = "viritus"
         //- update your credentials ID after creating credentials for connecting to ACR
-        registryCredential = 'azure'
+        registryCredential = 'viritus-azure-repo'
         //dockerImage = ''
-        registryUrl = 'pythonwebsite.azurecr.io'
+        registryUrl = 'viritus.azurecr.io'
     }
 
     stages {
@@ -17,13 +17,8 @@ pipeline {
                 sh 'ls -R'
                 
             }
-        }
+        }      
         stage('Build Image') {
-            steps {
-                    sh 'docker build -t pythoncode .'
-            }
-        }        
-        stage('Build Image1') {
             steps {
                 script {
                     dockerImage = docker.build registryName
