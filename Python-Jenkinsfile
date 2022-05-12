@@ -20,6 +20,11 @@ pipeline {
         }
         stage('Build Image') {
             steps {
+                    sh 'docker build -t pythoncode .'
+            }
+        }        
+        stage('Build Image1') {
+            steps {
                 script {
                     dockerImage = docker.build registryName
                 }
