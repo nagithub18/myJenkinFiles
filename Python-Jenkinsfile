@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Pull') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/akannan1087/myPythonDockerRepo.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-repos', url: 'https://github.com/nagithub18/myPythonDockerRepo.git']]])
                 sh 'ls -R'
                 
             }
