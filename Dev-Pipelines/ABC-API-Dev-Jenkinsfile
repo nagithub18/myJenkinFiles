@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Pull Code') {
+            steps {
+                git credentialsId: 'Jenkins-Git', url: 'https://github.com/nagithub18/viritus-app-code'
+            }
+        }    
+        stage('Unit Test') {
+            steps {
+                echo 'Unit Test-'
+            }
+        }  
+        stage('Code Scan') {
+            steps {
+                echo 'Code Scan'
+            }
+        }  
+        stage('Deploy App') {
+            steps {
+                sshagent(['Deploy-Key']) {
+                    //sh 'scp -r * ubuntu@54.86.227.114:/var/www/html'
+                    echo "App Deployed"
+                }
+            }
+        }  
+        stage('Send Notification') {
+            steps {
+                echo 'Send Notification'
+            }
+        }
+    }
+}
