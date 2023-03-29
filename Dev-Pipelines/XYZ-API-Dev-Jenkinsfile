@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Pull Code') {
             steps {
-                git credentialsId: 'Jenkins-Git', url: 'https://github.com/nagithub18/hello-world-code.git'
+                git branch: 'main', credentialsId: 'Jenkins-Git', url: 'https://github.com/nagithub18/hello-world-code.git'
             }
         }    
         stage('Unit Test') {

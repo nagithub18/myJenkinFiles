@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Pull Code') {
             steps {
-                git credentialsId: 'Jenkins-Git', url: 'https://github.com/nagithub18/viritus-app-code'
+                git branch: 'main', credentialsId: 'Jenkins-Git', url: 'https://github.com/nagithub18/viritus-app-code'
             }
         }    
         stage('Unit Test') {
